@@ -1,18 +1,22 @@
 <template>
   <section class="profile">
     <TopHeader title="我的"/>
-    <section class="profile-number" @click="$router.push('/login')">
+    <section class="profile-number" @click="$router.push( user._id ? '/info': '/login')">
       <a href="javascript:" class="profile-link">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
-          <p>
-                <span class="user-icon">
-                  <i class="iconfont icon-shouji icon-mobile"></i>
-                </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+          <p class="user-info-top" v-if="!user.phone">
+            {{user.name ? user.name: '登录/注册'}}
+          </p>
+          <p >
+            <span class="user-icon">
+              <i class="iconfont icon-shouji icon-mobile"></i>
+            </span>
+            <span class="icon-mobile-number">
+              {{user.phone? user.phone: '还未绑定手机号'}}
+            </span>
           </p>
         </div>
         <span class="arrow">
@@ -88,18 +92,37 @@
         </div>
       </a>
     </section>
+
+    <section v-if="user._id">
+      <mt-button type="danger" style="width:100%;margin-top: 10px;" @click.prevent="logout">退出登录</mt-button>
+    </section>
   </section>
 </template>
 
 <script>
+
+  import { mapState } from 'vuex'
+  import {MessageBox} from 'mint-ui'
  export default {
+    computed : {
+      ...mapState(['user'])
+    },
+
+   methods : {
+      async logout () {
+       //退出登录 也要请求
+        //提醒之后再请求
+        MessageBox.confirm('确定退出登录?')
+          .then( action => this.$store.dispatch('resetUser'))
+      },
+   }
 
  }
 </script>
 
 <style type="text/stylus" lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
-  .profile //我的
+  .profile  //个人
     width 100%
     overflow hidden
     .profile-number

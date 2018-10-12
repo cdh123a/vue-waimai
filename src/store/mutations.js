@@ -2,7 +2,9 @@
 import {
   RECEIVE_POSITION,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  SAVE_USER,
+  RESET_USER
 } from './mutations-type'
 
 export default {
@@ -18,4 +20,15 @@ export default {
   [RECEIVE_SHOPS] (state ,{shops}) {
     state.shops = shops
   },
+  //保存user
+  [SAVE_USER] (state ,{user}) {
+    state.user = user
+  },
+
+  //清空user
+  [RESET_USER] (state) {
+    state.user = { }
+  },
+
+
 }

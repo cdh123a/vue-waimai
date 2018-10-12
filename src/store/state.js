@@ -6,4 +6,7 @@ export default {
   position : { },
   categorys : [ ],
   shops : [ ],
+
+  //登录界面 返回响应数据user
+  user : { } ,
 }

@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import router from './router'
+import { Button } from 'mint-ui'
 
 import App from './App'
 import store from './store'
@@ -14,6 +15,9 @@ import 'swiper/dist/css/swiper.min.css'
 
 //top-header四個組件都使用  因此注册成全局组件
 Vue.component('TopHeader',TopHeader)
+//将mint-ui的组件Button注册成全局组件  而它的的名字不能乱写
+// 组件有一个name属性专门用来注册它的的名字
+Vue.component( Button.name ,Button)
 
 const vm = new Vue({
   el: '#app',
@@ -28,6 +32,7 @@ const vm = new Vue({
   //注册路由器
   router,
   //注册store
-  store
+  store,
+
 })
 

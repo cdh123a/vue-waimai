@@ -14,6 +14,9 @@
       this.$store.dispatch('getPosition');
       this.$store.dispatch('getShops');
       this.$store.dispatch('getCategorys');
+
+      //免登录  需要请求userinfo路由
+      this.$store.dispatch('getUser')
     },
     data () {
       return {
