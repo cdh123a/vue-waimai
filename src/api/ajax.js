@@ -14,10 +14,13 @@ export default function ajax( url , data ={ } , methods = 'GET'){
         Object.keys(data).forEach( item  => {
           spliceUrl += item + '=' + data[item] + '&';
         })
-        //将最后一个 & 截取掉
-        const finalUrl = spliceUrl.substring( 0 ,spliceUrl.length-1);
-        //拼接成url
-        url = url + '?' + finalUrl ;
+        //判断一下spliceUrl是否存在  没参数直接请求  拼接参数后再请求
+        if(spliceUrl){
+          //将最后一个 & 截取掉
+          const finalUrl = spliceUrl.substring( 0 ,spliceUrl.length-1);
+          //拼接成url
+          url = url + '?' + finalUrl ;
+        }
       }
       //不管有没有参数 都要发请求
       //发送请求  返回的是promise对象

@@ -28,6 +28,12 @@ export const reqUser = () => ajax('/api/userinfo')
 export const reqLogout = () => ajax('/api/logout')
 
 
+//模拟mock数据 ajax会被拦截 因此不需要加api     模拟发送ajax请求
+export const reqGoods = () => ajax('/goods')
+export const reqRatings = () => ajax('/ratings')
+export const reqInfo = () => ajax('/info')
+
+
 
 
 

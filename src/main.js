@@ -3,6 +3,7 @@ import Vue from 'vue'
 import router from './router'
 import { Button } from 'mint-ui'
 
+
 import App from './App'
 import store from './store'
 import TopHeader from './components/top-header/top-header.vue'
@@ -10,8 +11,8 @@ import TopHeader from './components/top-header/top-header.vue'
 //引入swiper的样式
 import 'swiper/dist/css/swiper.min.css'
 
-
-
+//直接引入mock  执行一遍就行
+import './mock/mockServer'
 
 //top-header四個組件都使用  因此注册成全局组件
 Vue.component('TopHeader',TopHeader)
