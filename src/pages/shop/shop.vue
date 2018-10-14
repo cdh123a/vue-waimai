@@ -19,16 +19,11 @@
 
 <script>
   import ShopHeader from '../../components/shop-header/shop-header.vue'
-  import {reqGoods} from '../../api'
+
   export default {
     components : {
       ShopHeader
     },
-
-   async mounted () {
-      const result = await reqGoods()
-      console.log(result)
-    }
   }
 </script>
 

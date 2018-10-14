@@ -4,7 +4,10 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
   SAVE_USER,
-  RESET_USER
+  RESET_USER ,
+  SAVE_GOODS ,
+  SAVE_RATINGS ,
+  SAVE_INFO
 } from './mutations-type'
 
 export default {
@@ -30,5 +33,19 @@ export default {
     state.user = { }
   },
 
+  //保存goods
+  [SAVE_GOODS] (state,{goods}) {
+    state.goods = goods
+  },
+
+  //保存ratings
+  [SAVE_RATINGS] (state,{ratings}) {
+    state.ratings = ratings
+  },
+
+  //保存info
+  [SAVE_INFO] (state,{info}) {
+    state.info = info
+  },
 
 }

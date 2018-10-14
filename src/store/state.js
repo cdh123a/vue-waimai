@@ -9,4 +9,8 @@ export default {
 
   //登录界面 返回响应数据user
   user : { } ,
+
+  goods : [ ],
+  ratings : [ ],
+  info : { }
 }

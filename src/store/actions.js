@@ -4,15 +4,22 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS ,
   SAVE_USER ,
-  RESET_USER
+  RESET_USER ,
+  SAVE_GOODS ,
+  SAVE_RATINGS ,
+  SAVE_INFO
 } from './mutations-type'
 import {
   reqPosition ,
   reqFoodCategorys ,
   reqShops ,
   reqUser ,
-  reqLogout
+  reqLogout ,
+  reqGoods ,
+  reqRatings ,
+  reqInfo
 } from '../api'
+
 
 export default {
  async getPosition ({commit,state}) {
@@ -61,11 +68,42 @@ export default {
     }
   },
 
+  //请求退出登录
   async resetUser ({commit}) {
     const result = await reqLogout();
     if(result.code === 0){
       //清空user
       commit(RESET_USER)
     }
-  }
+  },
+
+  //保存mock返回的数据goods
+  async saveGoods ({commit},callback) {
+   const result = await reqGoods ();
+   if(result.code === 0){
+     const goods = result.data
+     commit(SAVE_GOODS,{goods})
+   }
+   //到了这一步  状态数据已经更新完毕 执行回调
+   typeof callback === 'function' &&  callback()
+  },
+
+  //保存mock返回的数据ratings
+  async saveRatings ({commit}) {
+    const result = await reqRatings ();
+    if(result.code === 0){
+      const ratings = result.data
+      commit(SAVE_RATINGS,{ratings})
+    }
+  },
+
+  //保存mock返回的数据info
+  async saveInfo ({commit}) {
+    const result = await reqInfo();
+    if(result.code === 0){
+      const info = result.data
+      commit(SAVE_INFO,{info})
+    }
+  },
+
 }

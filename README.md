@@ -86,5 +86,15 @@
 ## 3. 搭建商家整体界面结构
 
 ## 4. mock数据
-  了解mock数据
-  mock的基本使用
+   了解mock数据
+   mock的基本使用
+
+## 5.goods滚动 左右两边li的逻辑
+    1. 滑动右侧列表, 左侧列表的当前分类同步变化
+          根据滑动的距离来判断在哪一个li的高度内
+            初始一个右边li高度累加的数组  滑动的距离
+    2. 点击左侧某个分类项, 右侧列表滑动到对应位置
+        通过左边的点击的index  右边通过scrollTo(scrollY)  去liHeights数组里面取对应下标的值        注意： scrollY为负值  因此加一个负号
+        同时，左边点击的li添加current类名 因此还得更新this.scrollY的值  ，因为currentIndex只设置get无法直接更新
+    3. 完善1的功能: 使用左侧当前分类总是可见
+      左边使用scrollToElement() 方法来使左边的li总是可见
