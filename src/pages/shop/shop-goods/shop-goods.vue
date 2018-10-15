@@ -16,7 +16,7 @@
           <li class="food-list-hook" v-for="(goodType ,index) in goods" :key="index">
             <h1 class="title">{{goodType.name}}</h1>
             <ul v-if="goodType">
-              <li class="food-item bottom-border-1px" v-for="(food,index) in goodType.foods" :key="index">
+              <li class="food-item bottom-border-1px" v-for="(food,index) in goodType.foods" :key="index" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57"
                        :src="food.icon">
@@ -41,6 +41,10 @@
         </ul>
       </div>
     </div>
+    <Food :food="food" ref="food"/>
+    <ShopCart/>
+
+
   </div>
 
 </template>
@@ -54,11 +58,15 @@
 
   import {mapState } from 'vuex'
   import BScroll  from 'better-scroll'
+  import ShopCart from './shop-cart/shop-cart.vue'
+  import Food from './food/food.vue'
   export default {
     data () {
       return {
         liHeights : [],
         scrollY :  0 ,
+
+        food : { }   //传给food组件的具体的food对象
       }
     },
     computed : {
@@ -87,6 +95,9 @@
       }
     },
     mounted () {
+      new BScroll('.menu-wrapper');
+      new BScroll('.foods-wrapper');
+
       this.$store.dispatch('saveGoods',() => {
         //保证数据回来 并且组件更新之后才创建BScroll对象  这次使用nectTick+回调函数
         //状态数据更新完毕  $nextTick函数 状态数据更新之后，组件更新之前
@@ -170,7 +181,24 @@
         this.rightLi.scrollTo(0,scrollTo,300)
         //左边的current类名添加到点击的li   由于currentIndex只设置了get方法  没有set方法 无法直接更新  只能更新scrollY来间接更新  scrollY是正数 this.scrollY = Math.abs(scrollTo)或者
         this.scrollY = -scrollTo
+      } ,
+
+
+      //点击时 更新food组件要显示的food
+      showFood (food) {
+        this.food = food ;
+
+        //使food组件显示  拿到food组件  this.$refs.food
+        //这种是 子组件向父组件传递方法  子组件内没有父组件标签  因此能在父组件内拿到子组件对象，因此能拿到子组件上的所有属性以及方法
+        this.$refs.food._foodShow()
+        //点击li上的CartControl组件 food也显示 因为冒泡 因此CartControl要停止冒泡
       }
+    } ,
+
+
+    components : {
+      ShopCart ,
+      Food
     }
 
 

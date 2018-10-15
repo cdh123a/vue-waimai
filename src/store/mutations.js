@@ -62,6 +62,9 @@ export default {
       //初始数据劫持（绑定） count时候来添加的属性  没有经过数据劫持 因此count更新并不会引起组件更新  因此需要对count初始数据绑定  使用$set(vm对象的方法) 或者set(Vue对象的方法)
       //food.count = 1
       Vue.set(food , 'count' , 1)
+
+      //购物车食物列表只显示 CartControl点击一次的食物 点击两次只是增加count 不会增加显示次数
+      state.cartList.push(food)
     }
 
   },
@@ -71,6 +74,11 @@ export default {
     //判断    左边动画过程中 快速点击 count减少的bug
     if(food.count){
       food.count--
+      if(food.count ===0 ){
+        //为0时 将购物车食物列表中的count为0的食物从数组内移除
+        const index = state.cartList.findIndex( item => item === food)
+        state.cartList.splice(index,1)
+      }
     }
   }
 }

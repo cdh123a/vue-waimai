@@ -12,5 +12,8 @@ export default {
 
   goods : [ ],
   ratings : [ ],
-  info : { }
+  info : { },
+
+  //初始化购物车列表显示的购买食物数组
+  cartList: [],
 }

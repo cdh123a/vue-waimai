@@ -1,8 +1,9 @@
 <template>
   <div class="cartcontrol">
-    <div class="iconfont icon-remove_circle_outline" v-if="food.count" @click="addCount(false)"></div>
+    <div class="iconfont icon-remove_circle_outline" v-if="food.count"
+         @click.stop="addCount(false)"></div>
     <div class="cart-count" v-if="food.count">{{food.count}}</div>
-    <div class="iconfont icon-add_circle" @click="addCount(true)"></div>
+    <div class="iconfont icon-add_circle" @click.stop="addCount(true)"></div>
   </div>
 </template>
 
