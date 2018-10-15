@@ -1,4 +1,6 @@
 /*包含直接更新状态数据的n个方法的集合*/
+
+import Vue from 'vue'
 import {
   RECEIVE_POSITION,
   RECEIVE_CATEGORYS,
@@ -7,7 +9,9 @@ import {
   RESET_USER ,
   SAVE_GOODS ,
   SAVE_RATINGS ,
-  SAVE_INFO
+  SAVE_INFO ,
+  INCRMENT_COUNT ,
+  DECRMENT_COUNT
 } from './mutations-type'
 
 export default {
@@ -48,4 +52,25 @@ export default {
     state.info = info
   },
 
+  //增加count
+  [INCRMENT_COUNT] (state ,{food}) {
+    //由于food是state.goods里面的一部分数据  已经进行过数据绑定 改变food 就能改变state.foods
+    //food是后来添加的count  初始时没有
+    if(food.count){
+      food.count ++ ;
+    }else{
+      //初始数据劫持（绑定） count时候来添加的属性  没有经过数据劫持 因此count更新并不会引起组件更新  因此需要对count初始数据绑定  使用$set(vm对象的方法) 或者set(Vue对象的方法)
+      //food.count = 1
+      Vue.set(food , 'count' , 1)
+    }
+
+  },
+
+  //减少count
+  [DECRMENT_COUNT] (state,{food}) {
+    //判断    左边动画过程中 快速点击 count减少的bug
+    if(food.count){
+      food.count--
+    }
+  }
 }

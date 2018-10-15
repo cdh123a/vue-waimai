@@ -32,7 +32,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -204,7 +204,7 @@
           z-index: 10
           margin-top: -1px
           background: #fff
-          color #02a774
+          color $green
           font-weight: 700
           .text
             border-none()

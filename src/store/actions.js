@@ -7,7 +7,9 @@ import {
   RESET_USER ,
   SAVE_GOODS ,
   SAVE_RATINGS ,
-  SAVE_INFO
+  SAVE_INFO ,
+  INCRMENT_COUNT ,
+  DECRMENT_COUNT
 } from './mutations-type'
 import {
   reqPosition ,
@@ -105,5 +107,16 @@ export default {
       commit(SAVE_INFO,{info})
     }
   },
+
+  //更新count
+  updateCount ({commit},{isAdd,food}) {
+   if(isAdd){
+     //增加count
+     commit(INCRMENT_COUNT,{food})
+   }else{
+     //减少count
+     commit(DECRMENT_COUNT,{food})
+   }
+  }
 
 }
