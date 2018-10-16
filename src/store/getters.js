@@ -18,5 +18,10 @@ export default {
   //购物车总价格
   totalPrice (state) {
     return state.cartList.reduce( (prve,currFood) => prve + currFood.count*currFood.price ,0)
+  },
+
+  //生成好评的总数
+  tatalGoodContent (state){
+    return state.ratings.reduce((prve,curr) => prve+(curr.rateType === 0 ? 1 : 0),0)
   }
 }

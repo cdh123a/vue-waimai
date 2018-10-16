@@ -187,3 +187,50 @@
 ## 3. 项目优化
 ## 4. 路由导航卫士
 
+
+单独使用import...from引入的话，打包时会将这些路由整理成一个文件，引入的话比较大，因此会将这些一级路由使用import方法引入，这样子能实现 跳装到这个路由才会去请求 路由，不需要的路由不会加载，能够提高一部分加载速度
+const goods = () => import('pages/goods/goods.vue')
+const ratings = () => import('pages/ratings/ratings.vue')
+const seller = () => import('pages/seller/seller.vue')
+
+
+# day06
+## 1. ShopRatings组件
+    1). 使用vue的自定义事件实现: 子组件向父组件通信
+        绑定事件监听: @eventName = 'callback'
+        触发/分发事件: this.$emit('eventName', data)
+    2). 使用计算属性对列表进行过滤显示
+        自定义列表过滤的计算逻辑
+    3). 日期格式化显示
+        自定义日期过滤器
+        moment库
+
+## 2. ShopInfo组件
+    1). 通过原生DOM操作元素样式
+    2). 解决在当前路由上刷新异常的bug
+
+## 3. 项目优化
+    1). 缓存路由组件: <keep-alive>
+    2). 路由懒加载: const Home = () => import('./Home.vue')
+    3). 图片懒加载: vue-lazyload
+
+## 4. 路由导航卫士
+    1). 需求
+        a. 应用中一些界面必须是用户登陆后才能显示, 否则自动跳转到登陆界面
+        b. 应用中某个界面必须是未登陆才能显示, 否则自动跳转到个人中心界面
+        c. 应用中某个界面在离开后自动停止当前的定时工作
+    2). 作用:
+        a. 监视路由跳转
+        b. 控制路由跳转: next()
+    3). 应用
+        a. 在跳转到界面前, 进行用户权限检查限制(如是否已登陆)
+        b. 在界面离开前, 做收尾工作
+    4). 常用的卫士回调函数:
+        a. 全局前置卫士: beforeEach()    // 不能直接使用this
+        b. 组件进入卫士: beforeRouteEnter() // 不能直接使用this
+        c. 组件更新之前: beforeRouteUpdate()   //能直接使用this
+        d. 组件离开卫士: beforeRouteLeave()
+
+ keep-alive是给router-view包裹起来，才能实现组件保存下去
+
+

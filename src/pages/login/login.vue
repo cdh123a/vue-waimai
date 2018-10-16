@@ -198,6 +198,23 @@
 
       }
 
+    },
+
+
+    beforeRouteEnter (to,form,next) {
+      //路由前置守卫
+      // beforeRouteEnter这个回调在组件创建前就调用  this为undefined
+      //next传入回调函数  在组件对象创建后自动调用 ，会将组件对象传入，因此参数为component
+      next( (component) => {
+        if(component.$store.state.user._id){
+          //登录了的用户无法跳转到登录路由 直接跳转到profile
+          next('/profile')
+        }else{
+          //没有登录的用户允许通过
+          next()
+        }
+      })
+
     }
   }
 </script>

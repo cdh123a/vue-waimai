@@ -1,51 +1,49 @@
 <template>
-  <div>
-    <div class="goods">
-      <div class="menu-wrapper">
-        <ul ref="leftLiNode">
-          <li class="menu-item " v-for="(goodType ,index) in goods" :key="index" :class="{current:index === currentIndex }" @click="selectItem(index)">
+    <div>
+      <div class="goods">
+        <div class="menu-wrapper">
+          <ul ref="leftLiNode">
+            <li class="menu-item " v-for="(goodType ,index) in goods" :key="index" :class="{current:index === currentIndex }" @click="selectItem(index)">
             <span class="text bottom-border-1px">
               <img class="icon" :src="goodType.icon" v-if="goodType.icon">
               {{goodType.name}}
             </span>
-          </li>
-        </ul>
-      </div>
-      <div class="foods-wrapper">
-        <ul ref="liNode">
-          <li class="food-list-hook" v-for="(goodType ,index) in goods" :key="index">
-            <h1 class="title">{{goodType.name}}</h1>
-            <ul v-if="goodType">
-              <li class="food-item bottom-border-1px" v-for="(food,index) in goodType.foods" :key="index" @click="showFood(food)">
-                <div class="icon">
-                  <img width="57" height="57"
-                       :src="food.icon">
-                </div>
-                <div class="content">
-                  <h2 class="name">{{food.name}}</h2>
-                  <p class="desc">{{food.description}}</p>
-                  <div class="extra">
-                    <span class="count">月售{{food.sellCount}}份</span>
-                    <span>好评率{{food.rating}}%</span></div>
-                  <div class="price">
-                    <span class="now">￥{{food.price}}</span>
-                    <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="foods-wrapper">
+          <ul ref="liNode">
+            <li class="food-list-hook" v-for="(goodType ,index) in goods" :key="index">
+              <h1 class="title">{{goodType.name}}</h1>
+              <ul v-if="goodType">
+                <li class="food-item bottom-border-1px" v-for="(food,index) in goodType.foods" :key="index" @click="showFood(food)">
+                  <div class="icon">
+                    <img width="57" height="57"
+                         :src="food.icon">
                   </div>
-                  <div class="cartcontrol-wrapper">
-                    <CartControl :food="food"/>
+                  <div class="content">
+                    <h2 class="name">{{food.name}}</h2>
+                    <p class="desc">{{food.description}}</p>
+                    <div class="extra">
+                      <span class="count">月售{{food.sellCount}}份</span>
+                      <span>好评率{{food.rating}}%</span></div>
+                    <div class="price">
+                      <span class="now">￥{{food.price}}</span>
+                      <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+                    </div>
+                    <div class="cartcontrol-wrapper">
+                      <CartControl :food="food"/>
+                    </div>
                   </div>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
+      <Food :food="food" ref="food"/>
+      <ShopCart/>
     </div>
-    <Food :food="food" ref="food"/>
-    <ShopCart/>
-
-
-  </div>
 
 </template>
 

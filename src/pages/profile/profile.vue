@@ -96,6 +96,15 @@
     <section v-if="user._id">
       <mt-button type="danger" style="width:100%;margin-top: 10px;" @click.prevent="logout">退出登录</mt-button>
     </section>
+
+
+    <section class="profile_my_order border-1px">
+      <router-link to="/a">AAA</router-link>
+      <router-link to="/b">BBB</router-link>
+      <br>
+      <br>
+      <router-link to="/login">去登陆</router-link>
+    </section>
   </section>
 </template>
 
@@ -227,6 +236,46 @@
           width 20px
           height 20px
           >.iconfont
+            margin-left -10px
+            font-size 30px
+          .icon-order-s
+            color #02a774
+          .icon-jifen
+            color #ff5f3e
+          .icon-vip
+            color #f90
+          .icon-fuwu
+            color #02a774
+        .my_order_div
+          width 100%
+          border-bottom 1px solid #f1f1f1
+          padding 18px 10px 18px 0
+          font-size 16px
+          color #333
+          display flex
+          justify-content space-between
+          span
+            display block
+          .my_order_icon
+            width 10px
+            height 10px
+            .icon-jiantou1
+              color #bbb
+              font-size 10px
+    .profile_my_order
+      top-border-1px(#e4e4e4)
+      margin-top 10px
+      background #fff
+      .my_order
+        display flex
+        align-items center
+        padding-left 15px
+        > span
+          display flex
+          align-items center
+          width 20px
+          height 20px
+          > .iconfont
             margin-left -10px
             font-size 30px
           .icon-order-s

@@ -92,11 +92,12 @@ export default {
   },
 
   //保存mock返回的数据ratings
-  async saveRatings ({commit}) {
+  async saveRatings ({commit},callback) {
     const result = await reqRatings ();
     if(result.code === 0){
       const ratings = result.data
       commit(SAVE_RATINGS,{ratings})
+      typeof callback === 'function' &&  callback()
     }
   },
 
