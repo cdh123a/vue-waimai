@@ -9,7 +9,8 @@ import {
   SAVE_RATINGS ,
   SAVE_INFO ,
   INCRMENT_COUNT ,
-  DECRMENT_COUNT
+  DECRMENT_COUNT ,
+  CLEAR_CART_LIST
 } from './mutations-type'
 import {
   reqPosition ,
@@ -117,6 +118,11 @@ export default {
      //减少count
      commit(DECRMENT_COUNT,{food})
    }
+  },
+
+  //清空cartCount
+  clearCartList({commit}){
+   commit(CLEAR_CART_LIST)
   }
 
 }

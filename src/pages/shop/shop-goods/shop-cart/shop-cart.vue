@@ -19,10 +19,10 @@
         </div>
       </div>
       <transition name="move">
-        <div class="shopcart-list"  v-show="cartIsShow">
+        <div class="shopcart-list"  v-show="cartIsShow & totalCount>0 ">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" @click="clearCartList">清空</span>
           </div>
           <div class="list-content">
             <ul>
@@ -30,7 +30,7 @@
                 <span class="name">{{food.name}}</span>
                 <div class="price"><span>￥{{food.price}}</span></div>
                 <div class="cartcontrol-wrapper">
-                  <CartControl :food="food"/>
+                  <CartControl :food="food" />
                 </div>
               </li>
             </ul>
@@ -46,6 +46,9 @@
   /*购物车中要显示的 购物列表数组
     1.可以在getters中定义
     2.在state里面定义一个购物列表数组
+
+    shopcart-list显示的条件  cartIsShow为true并且totalCount>0
+    totalCount不判断  会导致cartList数组没有数据  而shopcart-list还在显示
   * */
   import { mapState,mapGetters} from 'vuex'
   import BScroll from 'better-scroll'
@@ -84,11 +87,26 @@
 
         this.cartIsShow = !this.cartIsShow
         //组件的状态数据已经更新   数据显示之后就开始创建scroll对象
-        this.$nextTick( () => {
-          new BScroll('.list-content')
-        })
+        if(this.cartIsShow){   //组件将要更新
+          //保证BScroll对象只创建一次
+       this.$nextTick( () => {
+               if(!this.bScroll){
+               this.bScroll =new BScroll('.list-content',{
+                click : true
+               })
+               }else{
+                //通知BScroll对象更新一下滑动高度
+                this.bScroll.refresh()
+              }
+          })
+        }
+      },
 
+      clearCartList(){
+          this.$store.dispatch('clearCartList')
+          this.cartIsShow = false
       }
+
     }
   }
 </script>
@@ -190,10 +208,9 @@
       width: 100%
       //改变top值的话得使用js css使用translate
       transform translateY(-100%)
-      &.move-enter-active , &.move-leave-active
-        transition: opacity 0.5s,transform 0.3s
+      &.move-enter-active, &.move-leave-active
+        transition transform .5s
       &.move-enter, &.move-leave-to
-        opacity: 0
         transform translateY(0)
       .list-header
         height: 40px

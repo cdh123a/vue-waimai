@@ -11,3 +11,5 @@ export const SAVE_INFO = 'save_info'
 
 export const INCRMENT_COUNT = 'incrment_count'
 export const DECRMENT_COUNT = 'decrment_count'
+
+export const  CLEAR_CART_LIST = 'clear_cart_list'

@@ -89,6 +89,55 @@
    了解mock数据
    mock的基本使用
 
+
+#day 04
+## 1. ShopHeader组件
+    1). 异步显示数据效果的编码流程
+        ajax
+          ajax请求函数
+          接口请求函数
+        vuex
+          state
+          mutation-types
+          actions
+          mutations
+        组件
+          dispatch(): 异步获取后台数据到vuex的state
+          mapState(): 从vuex的state中读取对应的数据
+          模板中显示
+    2). 初始显示异常
+        情况: Cannot read property 'xxx' of undefined"
+          原因: 初始值是空对象, 内部没有数据, 而模块中直接显示3层表达式
+          解决: 使用v-if指令
+    3). vue transition动画
+
+## 2. ShopGoods组件
+    1). 动态展现列表数据
+    2). 基本滑动:
+        使用better-scroll
+        创建BScroll对象的时机
+          watch + $nextTick()
+          自定义callback + $nextTick
+        better-scroll禁用了原生的dom事件, 使用的是自定义事件
+        绑定监听: scroll/scrollEnd
+        滚动监听的类型: probeType
+        列表滑动的2种类型
+            手指触摸
+            惯性/编码
+    3). 滑动右侧列表, 左侧会同步更新当前分类
+        1). 设计一个计算属性: currentIndex代表当前分类的下标
+        2). 相关数据
+          滚动的y坐标: scrollY---> 给右侧列表绑定一个滚动的监听
+          右侧分类<li>的top数组: tops-->列表第一次显示之后统计
+        3). 计算的逻辑
+           scrollY>=top && scrollY<nextTop
+    4). 点击左侧分类项, 右侧列表滑动到对应位置
+        1). 绑定点击监听
+        2). 通过rightScroll滚动到对应的位置
+        3). 立即更新scrollY
+    5). 问题: 如何保证当前分类可见?
+        在currentIndex变化时, 使左侧列表滑动到对应的li
+
 ## 5.goods滚动 左右两边li的逻辑
     1. 滑动右侧列表, 左侧列表的当前分类同步变化
           根据滑动的距离来判断在哪一个li的高度内
@@ -98,3 +147,43 @@
         同时，左边点击的li添加current类名 因此还得更新this.scrollY的值  ，因为currentIndex只设置get无法直接更新
     3. 完善1的功能: 使用左侧当前分类总是可见
       左边使用scrollToElement() 方法来使左边的li总是可见
+
+
+
+# day05
+## 1. CartControl组件
+    1). 问题: 更新状态数据, 对应的界面不变化
+        原因: 一般方法给一个已有绑定的对象中添加一个新的属性, 这个属性没有数据绑定
+        解决:
+            Vue.set(obj, 'xxx', value)才有数据绑定
+            this.$set(obj, 'xxx', value)才有数据绑定
+
+## 2. Food组件
+    1). 父子组件:
+        子组件调用父组件的方法: 通过props将方法传递给子组件
+        父组件调用子组件的方法: 通过ref找到子组件标签对象
+     2). 事件冒泡的问题?
+        @click.stop='xxx'
+
+## 3. ShopCart组件
+    1). 使用vuex管理购物项数据: cartFoods
+      count增加为1: 将food添加到cartFoods中
+      count减少为0, 将food从cartFoods中删除
+    2). 解决几个功能性bug
+        a. 删除所有购物项, 购物车列表还打开着: 显示条件-->listShow----isShow/cartFoodCount
+        b. 添加一个购物项, 购物车列表自动打开: 当cartFoodCount为0, 设置isShow=false
+        c. 购物车列表不能滑动: 创建BScroll对象
+        d. 购物车列表中点一次添加, 会增加多次
+            原因: 同一个列表, 创建了多个scroll对象
+            解决: 只创建一个scroll对象(单例对象)
+                1). 创建之前, 判断对象不存在
+                2). 创建之后, 保存对象
+        e. 打开时, 可能不能滚动
+             scroll.refresh()
+
+# day06
+## 1. ShopRatings组件
+## 2. ShopInfo组件
+## 3. 项目优化
+## 4. 路由导航卫士
+

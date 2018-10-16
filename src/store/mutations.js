@@ -11,7 +11,8 @@ import {
   SAVE_RATINGS ,
   SAVE_INFO ,
   INCRMENT_COUNT ,
-  DECRMENT_COUNT
+  DECRMENT_COUNT ,
+  CLEAR_CART_LIST
 } from './mutations-type'
 
 export default {
@@ -80,5 +81,11 @@ export default {
         state.cartList.splice(index,1)
       }
     }
+  },
+
+  [CLEAR_CART_LIST] (state) {
+    //先更新food中的count为0  再将cartList置为0
+    state.cartList.forEach( food => food.count = 0)
+    state.cartList = [];
   }
 }
